@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live Sale Tally — Free Comment Order Tracker (Facebook, Instagram, TikTok)</title>
+<meta name="description" content="Free tool for live sellers: paste your Facebook/Instagram Live comments and instantly get per-buyer invoices from 'SOLD' claims. No Shopify, no integration, no monthly fee. Runs in your browser.">
+<meta name="keywords" content="facebook live selling, comment selling, live sale tally, sold comment tracker, comment order tracker, live selling tool, facebook live order, instagram live sale, tiktok live order, comment sold">
+<meta property="og:title" content="Live Sale Tally — free comment order tracker">
+<meta property="og:description" content="Paste your live comments, get per-buyer invoices from SOLD claims. No Shopify, no monthly fee. In your browser.">
+<meta property="og:image" content="https://minho1511.github.io/livesale-tally/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://minho1511.github.io/livesale-tally/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23e0245e'/%3E%3Cpath d='M50 78L28 56a13 13 0 0 1 22-14 13 13 0 0 1 22 14z' fill='white'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Live Sale Tally","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free comment order tracker for Facebook/Instagram/TikTok live sellers."}</script>
+<style>
+  :root{ --bg:#f4f5fa; --card:#fff; --ink:#16181f; --muted:#5c6472; --line:#e2e5ee; --accent:#e0245e; --accent-d:#c31e50; --ok:#12864a; --okbg:#dcf5e6; --warn:#b9770a; --warnbg:#fdf1d8; }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){ --bg:#0e1017; --card:#171a24; --ink:#eef0f6; --muted:#9aa2b4; --line:#262b39; --accent:#ff5c86; --accent-d:#ff789b; --ok:#4cd08a; --okbg:#12331f; --warn:#e0a53a; --warnbg:#332810; }}
+  :root[data-theme="dark"]{ --bg:#0e1017; --card:#171a24; --ink:#eef0f6; --muted:#9aa2b4; --line:#262b39; --accent:#ff5c86; --accent-d:#ff789b; --ok:#4cd08a; --okbg:#12331f; --warn:#e0a53a; --warnbg:#332810; }
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,Segoe UI,Roboto,system-ui,sans-serif}
+  header{padding:30px 18px 6px;text-align:center} h1{margin:0 0 5px;font-size:25px;letter-spacing:-.02em}
+  .sub{color:var(--muted);max-width:640px;margin:0 auto;font-size:14px}
+  main{max-width:1000px;margin:0 auto;padding:14px 14px 60px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+  .lbl{font-size:12px;font-weight:800;letter-spacing:.03em;color:var(--muted);text-transform:uppercase;margin:0 0 8px}
+  textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:9px;padding:10px;background:transparent;color:var(--ink);font:13px/1.5 inherit;resize:vertical}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.two{grid-template-columns:1fr}}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  button{font:inherit;font-weight:700;border:1px solid var(--accent);border-radius:9px;padding:9px 15px;cursor:pointer;background:var(--accent);color:#fff}
+  button.ghost{background:transparent;color:var(--accent)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:4px 0 14px}@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .stat .k{font-size:11px;color:var(--muted);font-weight:700}.stat .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left}
+  th{color:var(--muted);font-size:11px;font-weight:700}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr.flag td.it{color:var(--warn);font-weight:700}
+  .hint{color:var(--muted);font-size:12px}
+  details{margin-top:8px}summary{cursor:pointer;color:var(--accent);font-size:13px;font-weight:700}
+  .ex{font-size:12px;color:var(--muted);white-space:pre-line;margin-top:6px;padding:8px;background:var(--bg);border-radius:8px}
+  .cta{margin:18px auto 0;max-width:760px;text-align:center;background:linear-gradient(135deg,var(--accent),#a21caf);color:#fff;border-radius:14px;padding:18px}
+  .cta b{font-size:16px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ok);color:#fff;padding:9px 15px;border-radius:9px;font-weight:700;opacity:0;transition:.2s}.toast.show{opacity:1}
+  section.faq{max-width:720px;margin:24px auto 0}section.faq h3{font-size:15px;margin:14px 0 4px}section.faq p{color:var(--muted);margin:0}
+  footer{color:var(--muted);text-align:center;font-size:12px;padding:16px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Live Sale Tally</h1>
+  <p class="sub">Paste your <b>Facebook / Instagram / TikTok Live</b> comments and instantly get a per-buyer invoice from every <b>“SOLD”</b> claim. No Shopify, no integration, no monthly fee — it runs in your browser.</p>
+</header>
+<main>
+  <div class="two">
+    <div class="card">
+      <p class="lbl">① Your item list (number · name · price)</p>
+      <textarea id="items" placeholder="1 Floral dress 25&#10;2 Denim jacket 40&#10;3 Sneakers 55"></textarea>
+      <details><summary>Format help</summary><div class="ex">One item per line: NUMBER  NAME  PRICE
+1 Floral dress 25
+2 Denim jacket 40
+3 Sneakers 55</div></details>
+      <div class="row"><span class="hint">Currency symbol</span>
+        <select id="cur" style="padding:7px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink)">
+          <option>$</option><option>₱</option><option>RM</option><option>฿</option><option>Rp</option><option>£</option><option>€</option><option>₩</option>
+        </select>
+        <label class="hint"><input type="checkbox" id="fcfs"> First claim wins (limited stock)</label>
+      </div>
+    </div>
+    <div class="card">
+      <p class="lbl">② Paste the live comments</p>
+      <textarea id="cmt" placeholder="Maria SOLD 1&#10;Jenny mine 2&#10;Anna 3&#10;Maria 2 sold"></textarea>
+      <details><summary>Format help</summary><div class="ex">Buyer name + the item number they claim.
+Recognizes: "SOLD 3", "mine 2", "3 sold", "item 1", "1 2 3", "1x2" (item 1, qty 2).
+Maria SOLD 1
+Jenny mine 2
+Anna 3</div></details>
+      <div class="row"><button id="run">Tally orders →</button><button class="ghost" id="clear">Clear</button></div>
+    </div>
+  </div>
+
+  <div id="result" style="display:none">
+    <div class="stats">
+      <div class="stat"><div class="k">Buyers</div><div class="v" id="sBuy">0</div></div>
+      <div class="stat"><div class="k">Items claimed</div><div class="v" id="sItems">0</div></div>
+      <div class="stat"><div class="k">Total sales</div><div class="v" id="sTotal">0</div></div>
+      <div class="stat"><div class="k">Unmatched</div><div class="v" id="sUnm">0</div></div>
+    </div>
+    <div class="card">
+      <div class="row" style="justify-content:space-between;margin:0 0 8px">
+        <p class="lbl" style="margin:0">Invoices per buyer</p>
+        <button class="ghost" id="csv">Download CSV</button>
+      </div>
+      <div style="overflow-x:auto"><table>
+        <thead><tr><th>Buyer</th><th>Items claimed (#)</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table></div>
+      <p class="hint" id="notes" style="margin-top:8px"></p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <b>Run a live every week?</b><br>
+    This is the free, manual way. Want comments captured <b>automatically</b> during your live, buyers DM’d their invoice, and a running stock count? That’s coming — <a id="wl" href="#" style="color:#fff;text-decoration:underline">tell us what you need</a>.
+  </div>
+
+  <section class="faq">
+    <h3>Is it free?</h3><p>Yes. This tool runs entirely in your browser — nothing is uploaded.</p>
+    <h3>Do I need Shopify?</h3><p>No. Unlike SoldLive/Dibsly/CommentSold, this needs no store, no integration, no monthly fee. Just paste and tally.</p>
+    <h3>How do buyers claim?</h3><p>However you already run it — “SOLD 3”, “mine 2”, or just the number. The tool reads all common patterns and you can edit before exporting.</p>
+    <h3>Limited stock?</h3><p>Turn on “First claim wins” and each item goes to the earliest commenter; later claims are flagged as waitlist.</p>
+  </section>
+</main>
+<div class="toast" id="toast"></div>
+<footer>Free tool · runs in your browser · Live Sale Tally</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let invoices=[], unmatchedCount=0, waitlist=[];
+function toast(m){const t=$('toast');t.textContent=m;t.className='toast show';clearTimeout(window._t);window._t=setTimeout(()=>t.className='toast',2000);}
+function parseItems(raw){
+  const map={};
+  raw.split(/\r?\n/).forEach(line=>{
+    const m=line.trim().match(/^(\d+)[\s.\)-]+(.+?)\s+([\d.,]+)\s*$/);
+    if(m){ map[m[1]]={name:m[2].trim(), price:Number(m[3].replace(/,/g,''))}; }
+  });
+  return map;
+}
+const TIME=/\s*[·|]?\s*(\d+\s*(s|m|h|d|sec|min|hr)\b.*|just now|now)\s*$/i;
+const NOISE=/^(reply|like|likes?\s*\d*|share|see more|translate|\d+\s*(likes?|replies?)|·)$/i;
+// extract claimed item numbers + qty from a comment
+function parseClaims(text){
+  let t=text.replace(/sold|mine|dibs|claim(ed)?|please|pls|i'?ll take|take|get/gi,' ');
+  const claims=[];
+  // "AxB" = item A, qty B (e.g. "1x2" = item 1, qty 2)
+  const qx=[...text.matchAll(/(\d+)\s*[x×]\s*(\d+)/gi)];
+  let rest=t;
+  qx.forEach(m=>{ claims.push({item:m[1], qty:Number(m[2])}); rest=rest.replace(m[0],' '); });
+  // remaining bare numbers = item claims (qty 1)
+  (rest.match(/\d+/g)||[]).forEach(n=>claims.push({item:n, qty:1}));
+  // dedupe by item, summing qty
+  const seen={}; const out=[];
+  claims.forEach(c=>{ if(seen[c.item]){seen[c.item].qty+=c.qty;} else {seen[c.item]={...c}; out.push(seen[c.item]);} });
+  return out;
+}
+function parseComments(raw){
+  const lines=raw.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  const appCopy=/reply|like|·|\d+\s*(m|h|s)\b/i.test(raw) && !/\t/.test(raw);
+  const out=[]; let pending=null;
+  for(const line of lines){
+    const tab=line.match(/^(.+?)\t+(.+)$/);
+    if(tab){ out.push({author:tab[1].trim(), text:tab[2].trim()}); pending=null; continue; }
+    const c=line.replace(TIME,'').trim();
+    if(!c||NOISE.test(c)) continue;
+    if(appCopy){
+      if(pending===null){ pending=c.replace(/\s*[·|].*/,'').trim(); }
+      else { out.push({author:pending, text:c}); pending=null; }
+    } else {
+      // single line "Name ...claim..."
+      const m=c.match(/^(\S{1,20})\s+(.*\d.*)$/);
+      if(m) out.push({author:m[1].trim(), text:m[2].trim()});
+    }
+  }
+  return out;
+}
+function fmt(n){return Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2});}
+function run(){
+  const items=parseItems($('items').value);
+  const cur=$('cur').value; const fcfs=$('fcfs').checked;
+  const comments=parseComments($('cmt').value);
+  if(!Object.keys(items).length){ toast('Add your item list first'); return; }
+  if(!comments.length){ toast('Paste the live comments'); return; }
+  const buyers={}; const claimedBy={}; waitlist=[]; unmatchedCount=0;
+  comments.forEach(c=>{
+    const claims=parseClaims(c.text);
+    if(!claims.length){ return; }
+    claims.forEach(cl=>{
+      if(!items[cl.item]){ unmatchedCount++; return; }
+      if(fcfs){
+        if(claimedBy[cl.item]){ waitlist.push({buyer:c.author, item:cl.item}); return; }
+        claimedBy[cl.item]=c.author;
+      }
+      const b=buyers[c.author]||(buyers[c.author]={items:{}, qty:0, total:0});
+      b.items[cl.item]=(b.items[cl.item]||0)+cl.qty;
+      b.qty+=cl.qty; b.total+=cl.qty*items[cl.item].price;
+    });
+  });
+  invoices=Object.entries(buyers).map(([name,b])=>({name, items:b.items, qty:b.qty, total:b.total}));
+  render(items,cur,fcfs);
+  $('result').style.display='block';
+}
+function render(items,cur,fcfs){
+  const tb=$('tbody'); tb.innerHTML='';
+  let totItems=0,totSales=0;
+  invoices.forEach(inv=>{
+    totItems+=inv.qty; totSales+=inv.total;
+    const list=Object.entries(inv.items).map(([n,q])=>`#${n}${q>1?'×'+q:''}`).join(', ');
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${esc(inv.name)}</td><td class="it">${list}</td><td class="num">${inv.qty}</td><td class="num">${cur}${fmt(inv.total)}</td>`;
+    tb.appendChild(tr);
+  });
+  $('sBuy').textContent=invoices.length;
+  $('sItems').textContent=totItems;
+  $('sTotal').textContent=cur+fmt(totSales);
+  $('sUnm').textContent=unmatchedCount;
+  const notes=[];
+  if(unmatchedCount) notes.push(`${unmatchedCount} claim(s) referenced an item number not in your list.`);
+  if(fcfs&&waitlist.length) notes.push(`Waitlist (item already taken): ${waitlist.map(w=>w.buyer+' #'+w.item).join(', ')}.`);
+  $('notes').textContent=notes.join('  ');
+}
+function esc(s){return String(s||'').replace(/</g,'&lt;');}
+$('run').addEventListener('click',run);
+$('clear').addEventListener('click',()=>{$('items').value='';$('cmt').value='';invoices=[];$('result').style.display='none';});
+$('csv').addEventListener('click',()=>{
+  if(!invoices.length)return;
+  const cur=$('cur').value;
+  const cell=v=>/[",\n]/.test(String(v))?`"${String(v).replace(/"/g,'""')}"`:v;
+  const rows=invoices.map(inv=>[inv.name, Object.entries(inv.items).map(([n,q])=>`#${n}x${q}`).join(' '), inv.qty, inv.total]);
+  const csv='﻿'+[['Buyer','Items','Qty','Total('+cur+')'],...rows].map(r=>r.map(cell).join(',')).join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='live-sale-invoices.csv';a.click();
+  toast('CSV downloaded');
+});
+</script>
+</body>
+</html>

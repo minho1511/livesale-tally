@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://minho1511.github.io/livesale-tally/sitemap.xml
