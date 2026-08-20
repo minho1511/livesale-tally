@@ -93,7 +93,7 @@ Anna 3</div></details>
         <button class="ghost" id="csv">Download CSV</button>
       </div>
       <div style="overflow-x:auto"><table>
-        <thead><tr><th>Buyer</th><th>Items claimed (#)</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
+        <thead><tr><th>Buyer</th><th>Items claimed (#)</th><th class="num">Qty</th><th class="num">Total</th><th></th></tr></thead>
         <tbody id="tbody"></tbody>
       </table></div>
       <p class="hint" id="notes" style="margin-top:8px"></p>
@@ -190,14 +190,24 @@ function run(){
   render(items,cur,fcfs);
   $('result').style.display='block';
 }
+let lastItems={}, lastCur='$';
+function invoiceText(inv){
+  const lines=Object.entries(inv.items).map(([n,q])=>{
+    const it=lastItems[n]||{name:'item #'+n,price:0};
+    return `• ${it.name}${q>1?' ×'+q:''} — ${lastCur}${fmt(q*it.price)}`;
+  });
+  return `Hi ${inv.name}! Here's your order:\n${lines.join('\n')}\nTotal: ${lastCur}${fmt(inv.total)}\nPlease send payment to confirm. Thank you! 💕`;
+}
 function render(items,cur,fcfs){
+  lastItems=items; lastCur=cur;
   const tb=$('tbody'); tb.innerHTML='';
   let totItems=0,totSales=0;
-  invoices.forEach(inv=>{
+  invoices.forEach((inv,i)=>{
     totItems+=inv.qty; totSales+=inv.total;
     const list=Object.entries(inv.items).map(([n,q])=>`#${n}${q>1?'×'+q:''}`).join(', ');
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${esc(inv.name)}</td><td class="it">${list}</td><td class="num">${inv.qty}</td><td class="num">${cur}${fmt(inv.total)}</td>`;
+    tr.innerHTML=`<td>${esc(inv.name)}</td><td class="it">${list}</td><td class="num">${inv.qty}</td><td class="num">${cur}${fmt(inv.total)}</td>`+
+      `<td><button class="ghost cpinv" data-i="${i}" style="padding:5px 9px;font-size:12px">Copy invoice</button></td>`;
     tb.appendChild(tr);
   });
   $('sBuy').textContent=invoices.length;
@@ -211,6 +221,12 @@ function render(items,cur,fcfs){
 }
 function esc(s){return String(s||'').replace(/</g,'&lt;');}
 $('run').addEventListener('click',run);
+$('tbody').addEventListener('click',async e=>{
+  const b=e.target.closest('.cpinv'); if(!b) return;
+  const inv=invoices[+b.dataset.i]; if(!inv) return;
+  try{ await navigator.clipboard.writeText(invoiceText(inv)); toast('Invoice copied — paste in the DM'); }
+  catch(_){ toast('Copy failed'); }
+});
 $('clear').addEventListener('click',()=>{$('items').value='';$('cmt').value='';invoices=[];$('result').style.display='none';});
 $('csv').addEventListener('click',()=>{
   if(!invoices.length)return;
