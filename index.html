@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Live Sale Tally — Free Comment Order Tracker (Facebook, Instagram, TikTok)</title>
 <meta name="description" content="Free tool for live sellers: paste your Facebook/Instagram Live comments and instantly get per-buyer invoices from 'SOLD' claims. No Shopify, no integration, no monthly fee. Runs in your browser.">
-<meta name="keywords" content="facebook live selling, comment selling, live sale tally, sold comment tracker, comment order tracker, live selling tool, facebook live order, instagram live sale, tiktok live order, comment sold">
+<meta name="keywords" content="facebook live selling, comment selling, live sale tally, sold comment tracker, comment order tracker, live selling tool, facebook live order, instagram live sale, tiktok live order, whatsapp group order, whatsapp group buy tracker, comment sold">
 <meta property="og:title" content="Live Sale Tally — free comment order tracker">
 <meta property="og:description" content="Paste your live comments, get per-buyer invoices from SOLD claims. No Shopify, no monthly fee. In your browser.">
 <meta property="og:image" content="https://minho1511.github.io/livesale-tally/og.png">
@@ -50,7 +50,7 @@
 <body>
 <header>
   <h1>Live Sale Tally</h1>
-  <p class="sub">Paste your <b>Facebook / Instagram / TikTok Live</b> comments and instantly get a per-buyer invoice from every <b>“SOLD”</b> claim. No Shopify, no integration, no monthly fee — it runs in your browser.</p>
+  <p class="sub">Paste your <b>Facebook / Instagram / TikTok Live</b> comments — or a <b>WhatsApp group order</b> export — and instantly get a per-buyer invoice from every <b>“SOLD”</b> claim. No Shopify, no integration, no monthly fee — it runs in your browser.</p>
 </header>
 <main>
   <div class="two">
@@ -73,9 +73,9 @@
       <textarea id="cmt" placeholder="Maria SOLD 1&#10;Jenny mine 2&#10;Anna 3&#10;Maria 2 sold"></textarea>
       <details><summary>Format help</summary><div class="ex">Buyer name + the item number they claim.
 Recognizes: "SOLD 3", "mine 2", "3 sold", "item 1", "1 2 3", "1x2" (item 1, qty 2).
-Maria SOLD 1
-Jenny mine 2
-Anna 3</div></details>
+Works with pasted live comments AND WhatsApp chat export (.txt):
+[2/8/26, 3:14 PM] Maria: SOLD 1
+2/8/26, 3:14 PM - Jenny: mine 2</div></details>
       <div class="row"><button id="run">Tally orders →</button><button class="ghost" id="clear">Clear</button></div>
     </div>
   </div>
@@ -146,6 +146,14 @@ function parseClaims(text){
 }
 function parseComments(raw){
   const lines=raw.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  // WhatsApp export: "[2/8/26, 3:14 PM] Maria: SOLD 1"  or  "2/8/26, 3:14 PM - Maria: SOLD 1"
+  const WA=/^\[?\d{1,2}\/\d{1,2}\/\d{2,4},?\s+\d{1,2}:\d{2}(?::\d{2})?\s*(?:[AP]M)?\]?\s*[-–]?\s*([^:]{1,30}):\s*(.+)$/i;
+  const waHits=lines.filter(l=>WA.test(l)).length;
+  if(waHits>=2){
+    const out=[];
+    for(const line of lines){ const m=line.match(WA); if(m){ out.push({author:m[1].trim(), text:m[2].trim()}); } }
+    return out;
+  }
   const appCopy=/reply|like|·|\d+\s*(m|h|s)\b/i.test(raw) && !/\t/.test(raw);
   const out=[]; let pending=null;
   for(const line of lines){
